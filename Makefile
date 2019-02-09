@@ -1,6 +1,6 @@
 C_SOURCES = $(shell find . -name "*.c")
 C_OBJECTS = $(patsubst %.c, %.o, $(C_SOURCES))
-S_SOURCES = $(shell find . -name "*.s")
+S_SOURCES = $(shell find . -name "*.asm")
 S_OBJECTS = $(patsubst %.s, %.o, $(S_SOURCES))
 MAKE = make
 CC = gcc
@@ -16,7 +16,7 @@ all: $(S_OBJECTS) $(C_OBJECTS) link img
 
 .c.o:
 	$(CC) $(C_FLAGS) $< -o $@
-.s.o:
+.asm.o:
 	$(ASM) $(ASM_FLAGS) $<
 link:
 	$(LD) $(LD_FLAGS) $(S_OBJECTS) $(C_OBJECTS) -o kernel
