@@ -1,7 +1,7 @@
 C_SOURCES = $(shell find . -name "*.c")
 C_OBJECTS = $(patsubst %.c, %.o, $(C_SOURCES))
 S_SOURCES = $(shell find . -name "*.asm")
-S_OBJECTS = $(patsubst %.s, %.o, $(S_SOURCES))
+S_OBJECTS = $(patsubst %.asm, %.o, $(S_SOURCES))
 MAKE = make
 CC = gcc
 LD = ld
