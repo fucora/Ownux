@@ -2,7 +2,7 @@ C_SOURCES = $(shell find . -name "*.c")
 C_OBJECTS = $(patsubst %.c, %.o, $(C_SOURCES))
 S_SOURCES = $(shell find . -name "*.s")
 S_OBJECTS = $(patsubst %.s, %.o, $(S_SOURCES))
-
+MAKE = make
 CC = gcc
 LD = ld
 ASM = nasm
@@ -11,17 +11,17 @@ C_FLAGS = -c -Wall -m32 -ggdb -gstabs+ -nostdinc -fno-builtin -fno-stack-protect
 LD_FLAGS = -T scripts/kernel.ld -m elf_i386 -nostdlib
 ASM_FLAGS = -f elf -g -F stabs
 
-all: $(S_OBJECTS) $(C_OBJECTS) link update_image
+all: $(S_OBJECTS) $(C_OBJECTS) link img
 
 
 .c.o:
-	@echo 编译代码文件 $< ...
 	$(CC) $(C_FLAGS) $< -o $@
-
 .s.o:
-	@echo 编译汇编文件 $< ...
 	$(ASM) $(ASM_FLAGS) $<
-
 link:
-	@echo 链接内核文件...
 	$(LD) $(LD_FLAGS) $(S_OBJECTS) $(C_OBJECTS) -o kernel
+img:
+	sudo mount Ownux.img ./mnt
+	sudo cp ./kernel ./mnt/kernel
+	sleep 1
+	sudo umount ./mnt
