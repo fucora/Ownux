@@ -9,7 +9,9 @@ static const unsigned short char_attr = COLOR << 8;
 
 static unsigned char cursor_x = 0;
 static unsigned char cursor_y = 0;
-
+void asm_hlt(){
+	_asm();
+}
 void cleanf()
 {
 	unsigned int i;
